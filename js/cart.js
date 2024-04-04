@@ -81,18 +81,19 @@ function revisarMensajeVacio() {
 
 
 document.getElementById("comprar").addEventListener("click", async () => {
-  const carrito = JSON.parse(localStorage.getItem(Bebidas));
+  const carrito = JSON.parse(localStorage.getItem("bebidas")); // Corregido el nombre de la clave localStorage
   if (carrito && carrito.length > 0) {
-    const res = await fetch ("http://localhost:4000/carrito/comprar", {
-        method: "POST",
-        body: JSON.stringify(carrito),
-        Headers: {
-             "content- type": "application/json"
-       }
-     })
-    if (res.ok){
-      reiniciarcarrito();
+    const res = await fetch("http://localhost:4000/carrito/comprar", {
+      method: "POST",
+      body: JSON.stringify(carrito),
+      headers: { // Corregido a minúsculas
+        "content-type": "application/json" // Corregido el nombre del encabezado
+      }
+    });
+    if (res.ok) {
+      reiniciarCarrito(); // Corregido el nombre de la función
       window.location.href = "http://127.0.0.1:5500/compra-exitosa.html";
     }
   }
-    })
+});
+ 
